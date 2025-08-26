@@ -1,6 +1,7 @@
 //SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.19;
+
 import {Test, console} from "forge-std/Test.sol";
 import {FundMe} from "../../src/FundMe.sol";
 import {DeployFundMe} from "../../script/DeployFundMe.s.sol";
@@ -22,32 +23,38 @@ contract FundMeTest is Test {
         // Check if the owner is set correctly
         assertEq(fundMe.MINIMUM_USD(), 5e18);
     }
+
     function testOwnerIsMsgSender() public view {
         // Check if the owner is set correctly
         assertEq(fundMe.getOwner(), msg.sender);
     }
+
     function testPriceFeedVersion() public view {
         // Check if the price feed version is correct
         uint256 version = fundMe.getVersion();
         assertEq(version, 4, "Price feed version should be greater than 0");
     }
+
     function testFundFail() public {
         // Test that funding fails if the amount is less than the minimum USD
         vm.expectRevert("You need to spend more ETH!");
         fundMe.fund(); // 1 ETH is less than 5 USD at current prices
     }
+
     function testFundUpdatesFundedDS() public {
         vm.prank(USER);
         fundMe.fund{value: SEND_VALUE}();
         uint256 amountFunded = fundMe.getAddressToAmountFunded(address(USER));
         assertEq(amountFunded, SEND_VALUE);
     }
+
     function testAddsFunderToArrayOfFunders() public {
         vm.prank(USER);
         fundMe.fund{value: SEND_VALUE}();
         address funder = fundMe.getFunder(0);
         assertEq(funder, USER);
     }
+
     modifier funded() {
         vm.prank(USER);
         fundMe.fund{value: SEND_VALUE}();
@@ -59,6 +66,7 @@ contract FundMeTest is Test {
         vm.expectRevert();
         fundMe.withdraw();
     }
+
     function testWithdrawWithASingleFunder() public funded {
         // Arrange
         uint256 startingOwnerBalance = fundMe.getOwner().balance;
@@ -72,21 +80,15 @@ contract FundMeTest is Test {
         uint256 endingOwnerBalance = fundMe.getOwner().balance;
         uint256 endingFundMeBalance = address(fundMe).balance;
         assertEq(endingFundMeBalance, 0);
-        assertEq(
-            startingFundMeBalance + startingOwnerBalance,
-            endingOwnerBalance
-        );
+        assertEq(startingFundMeBalance + startingOwnerBalance, endingOwnerBalance);
     }
+
     function testWithdrawFromMultipleFunders() public funded {
         // Arrange
         uint160 numberOfFunders = 10;
         uint160 startingFunderIndex = 1;
 
-        for (
-            uint160 i = startingFunderIndex;
-            i < numberOfFunders + startingFunderIndex;
-            i++
-        ) {
+        for (uint160 i = startingFunderIndex; i < numberOfFunders + startingFunderIndex; i++) {
             // vm.prank(address(i));
             // fundMe.fund{value: SEND_VALUE}();
             hoax(address(i), SEND_VALUE);
@@ -110,10 +112,7 @@ contract FundMeTest is Test {
         uint256 endingOwnerBalance = fundMe.getOwner().balance;
         uint256 endingFundMeBalance = address(fundMe).balance;
         assertEq(endingFundMeBalance, 0);
-        assertEq(
-            startingFundMeBalance + startingOwnerBalance,
-            endingOwnerBalance
-        );
+        assertEq(startingFundMeBalance + startingOwnerBalance, endingOwnerBalance);
     }
 
     function testCheaperWithdrawFromMultipleFunders() public funded {
@@ -121,11 +120,7 @@ contract FundMeTest is Test {
         uint160 numberOfFunders = 10;
         uint160 startingFunderIndex = 1;
 
-        for (
-            uint160 i = startingFunderIndex;
-            i < numberOfFunders + startingFunderIndex;
-            i++
-        ) {
+        for (uint160 i = startingFunderIndex; i < numberOfFunders + startingFunderIndex; i++) {
             // vm.prank(address(i));
             // fundMe.fund{value: SEND_VALUE}();
             hoax(address(i), SEND_VALUE);
@@ -148,9 +143,6 @@ contract FundMeTest is Test {
         uint256 endingOwnerBalance = fundMe.getOwner().balance;
         uint256 endingFundMeBalance = address(fundMe).balance;
         assertEq(endingFundMeBalance, 0);
-        assertEq(
-            startingFundMeBalance + startingOwnerBalance,
-            endingOwnerBalance
-        );
+        assertEq(startingFundMeBalance + startingOwnerBalance, endingOwnerBalance);
     }
 }

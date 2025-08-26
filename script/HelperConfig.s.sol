@@ -45,10 +45,7 @@ contract HelperConfig is Script {
         // This is a dummy function to satisfy the contract structure
         // In a real scenario, you would return the configuration for Anvil
         vm.startBroadcast();
-        MockV3Aggregator mockPriceFeed = new MockV3Aggregator(
-            DECIMALS,
-            INITIAL_PRICE
-        ); // 2000 USD in 8 decimals
+        MockV3Aggregator mockPriceFeed = new MockV3Aggregator(DECIMALS, INITIAL_PRICE); // 2000 USD in 8 decimals
         vm.stopBroadcast();
 
         NetworkConfig memory anvilConfig = NetworkConfig({
