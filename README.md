@@ -1,11 +1,9 @@
 # CrowdSourcing dApp  
-
+ ###
 This is a decentralized crowd-sourcing application built by **retvrdioo**.  
 The project is written in **Solidity** and uses **Foundry** as the development framework.  
 
 It allows people to pool funds together for projects transparently, ensuring trust through smart contracts on the blockchain.  
-
----
 
 ## 🚀 Getting Started  
 
@@ -22,67 +20,71 @@ Clone the repository and install dependencies:
 git clone https://github.com/retvrdioo/your-repo.git
 cd your-repo
 forge install
-Compile the contracts:
+```
 
-bash
-Copy
-Edit
+
+### To Compile Contracts
+
+```bash
 forge build
-Run the tests:
+```
+### To Run Tests 
 
-bash
-Copy
-Edit
+```bash
 forge test
-Format the code:
-
-bash
-Copy
-Edit
+```
+### To Format Code
+```bash
 forge fmt
-Deploy locally (using Anvil):
-
-bash
-Copy
-Edit
+```
+### Deploy locally (using Anvil)
+```bash
 anvil
 forge script script/Deploy.s.sol --rpc-url http://localhost:8545 --private-key <YOUR_KEY> --broadcast
-📂 Project Structure
-src/ → main Solidity contracts (core logic of the crowd-sourcing app)
+```
 
-test/ → test contracts for unit testing with Foundry
 
-script/ → deployment and helper scripts
+---
+ ### Project Structure  
 
-.github/workflows/ → GitHub Actions for CI/CD (auto formatting, testing, etc.)
+```markdown
+## 📂 Project Structure  
 
-✨ Features
-Create new funding campaigns.
+- `src/` → main Solidity contracts (core logic of the crowd-sourcing app)  
+- `test/` → test contracts for unit testing with Foundry  
+- `script/` → deployment and helper scripts  
+- `.github/workflows/` → GitHub Actions for CI/CD (auto formatting, testing, etc.)  
+```
+---
+### ✨ Features
 
-Allow contributors to send ETH to campaigns.
+1. Create new funding campaigns.
 
-Track how much each campaign has raised.
+2. Allow contributors to send ETH to campaigns.
 
-Secure funds handling via smart contracts.
+3. Track how much each campaign has raised.
 
-Automated formatting & testing using Foundry.
+4. Secure funds handling via smart contracts.
+   
+---
 
-🛠️ Technologies
-Solidity – Smart contract language.
+## 🛠️ Technologies
 
-Foundry – For compiling, testing, deploying, and formatting.
+1. Solidity – Smart contract language.
 
-GitHub Actions – Automated checks (forge fmt, tests).
+2. Foundry – For compiling, testing, deploying, and formatting.
 
-(Optional if added later) React/Next.js frontend for user interaction.
+3. GitHub Actions – Automated checks (forge fmt, tests).
 
-🤝 Contributing
-Fork the repo
+--- 
+### 🤝 Contributing
 
-Create a new branch (git checkout -b feature-name)
+1. Fork the repo
 
-Commit changes (git commit -m "Added feature")
+2. Create a new branch (git checkout -b feature-name)
 
-Push to branch (git push origin feature-name)
+3. Commit changes (git commit -m "Added feature")
 
-Open a Pull Request
+4. Push to branch (git push origin feature-name)
+
+5. Open a Pull Request
